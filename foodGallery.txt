@@ -1,0 +1,148 @@
+/*
+SQLyog Ultimate v12.09 (64 bit)
+MySQL - 10.1.9-MariaDB : Database - foodgallery
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`foodgallery` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `foodgallery`;
+
+/*Table structure for table `categories` */
+
+DROP TABLE IF EXISTS `categories`;
+
+CREATE TABLE `categories` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(50) DEFAULT NULL,
+  `placeid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cid`),
+  KEY `placeid` (`placeid`),
+  CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`placeid`) REFERENCES `places` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
+/*Data for the table `categories` */
+
+insert  into `categories`(`cid`,`category`,`placeid`) values (1,'Karahi',1),(2,'Rice',1),(3,'Daal',1),(4,'BBQ',1),(5,'Bengoli',2),(6,'Bombay',2),(7,'Gujrati',2),(8,'Punjabi',2),(9,'Pizza',3),(10,'Burger',3),(11,'Pasta',3),(12,'Chinese Rice',4),(13,'Chinese Noodles',4),(14,'Chinese Soups',4),(15,'Shakes',5),(16,'Cold Drinks',5),(17,'Tea/Coffee',5),(18,'Juices',5),(20,'Halvay',6),(21,'Puddings',6),(22,'Ice cream',6);
+
+/*Table structure for table `customer` */
+
+DROP TABLE IF EXISTS `customer`;
+
+CREATE TABLE `customer` (
+  `customerID` varchar(50) DEFAULT NULL,
+  `PhoneNo` varchar(50) DEFAULT NULL,
+  `Address` varchar(100) DEFAULT NULL,
+  `Name` varchar(50) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `customerID` (`customerID`),
+  CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`customerID`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+/*Data for the table `customer` */
+
+insert  into `customer`(`customerID`,`PhoneNo`,`Address`,`Name`,`id`) values ('asma','0333452481880','house 41','Asma',1),('asma','454654654','     dfgdfgfd                   ','asma Asma',2),('asma','234345','          dsfdsfsdfdsfdsf              ','Asma',3),('asma','092349','          sdjfkjdshfkjhdskjfhsdk              ','Asma',4),('asma','76564','         gytfhg               ','fdgf',5),('asma','89','         hghfh               ','Asma',6),('asma','656','         gfg               ','sanam',7),('asma','0341874323','   lahore                      ','Asma Munir',8),('asma','01237283','        house 201                ','Asma Munir',9),('asma','12837213','       ssdfsdsf                 ','Asma Munir',10);
+
+/*Table structure for table `items` */
+
+DROP TABLE IF EXISTS `items`;
+
+CREATE TABLE `items` (
+  `i_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `itemName` varchar(50) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `placeId` int(11) DEFAULT NULL,
+  `catId` int(11) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`i_Id`),
+  KEY `placeId` (`placeId`),
+  KEY `catId` (`catId`),
+  CONSTRAINT `items_ibfk_1` FOREIGN KEY (`placeId`) REFERENCES `places` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `items_ibfk_2` FOREIGN KEY (`catId`) REFERENCES `categories` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
+
+/*Data for the table `items` */
+
+insert  into `items`(`i_Id`,`itemName`,`price`,`placeId`,`catId`,`image`) values (25,'Beef Karahi',700,1,1,'beef.jpg'),(27,'Chicken Karahi',700,1,1,'chicken.jpg'),(28,'Chicken Ginger',700,1,1,'ginger.jpg'),(29,'Chicken Hara Masala',700,1,1,'hara masala.jpg'),(30,'Chicken Jalfrezi',700,1,1,'jalfrezi.jpg'),(31,'Lamb Karahi',700,1,1,'lamb.jpg'),(32,'Chicken Madrasi',700,1,1,'madrasi.jpg'),(33,'Chicken Makhni',700,1,1,'makhni.jpg'),(34,'Chicken Paneer',700,1,1,'paneer.jpg'),(40,'Daal Gosht',345,1,3,'dal ghost.jpg'),(41,'Daal Makhni',455,1,3,'daal makhni.jpg'),(42,'Achari Daal Mash',455,1,3,'achari mash dal.jpg'),(43,'Punjabi Special Daal',455,1,3,'punjabi dal.jpg'),(45,'Mutton Pulao',400,1,2,'mutton pulao.jpg'),(46,'Chicken Pulao',400,1,2,'chicken pulao.jpg'),(47,'Bombay Biryaani',400,1,2,'bombay.jpg'),(48,'Vegetable Rice',400,1,2,'vegetable.jpg'),(49,'Sindhi Biryani',400,1,2,'sindhi.jpg'),(50,'Zarda',400,1,2,'zarda.jpg'),(51,'Gur Walay Chawal',400,1,2,'gurr wale.jpg'),(52,'Seekh Kaabab',456,1,4,'seekh kabab.jpg'),(53,'Chapli Kebab',456,1,4,'chapli kabab.jpg'),(54,'Chicken Chargha',456,1,4,'charga.jpg'),(55,'Hydrabaadi Biryaani',456,1,2,'hyderabadi.jpg'),(56,'Chicken Tikka',456,1,4,'chicken tikka.jpg'),(57,'Malai Kebab',455,1,4,'Malai Kabab.jpg'),(58,'Curry Fish',200,2,5,'fish curry.JPG'),(59,'Coconut Fish',200,2,5,'coconut fish.JPG'),(60,'Fried Fish',200,2,5,'fish fry.jpg'),(61,'Musturd Fish',200,2,5,'mustard fish.jpg'),(62,'Bhail Puri',100,2,6,'bhel puri.jpg'),(63,'Bistro',100,2,6,'bistro.png'),(64,'Bombay Special Alo',100,2,6,'bombay alo.jpg'),(65,'Btata Vada',100,2,6,'btata vada.jpg'),(66,'Keema Cutlet',100,2,6,'keema cutlet.jpg'),(67,'Vada Pav',100,2,6,'vada pav.jpg'),(68,'Thepla',290,2,7,'thepla.jpg'),(69,'Shrikhand',290,2,7,'shrikhand.jpg'),(70,'Khandvi',290,2,7,'khandvi.jpg'),(71,'Dhokla',290,2,7,'dhokla.jpg'),(72,'Aloo Paratha',200,2,8,'alo paratha.jpg'),(73,'Dum Aloo',200,2,8,'dum alo.jpg'),(74,'Choolay',200,2,8,'chooly.jpg'),(75,'Goobi Paratha',200,2,8,'gobi paratha.jpg'),(76,'Kaadi',200,2,8,'kadi.jpg'),(77,'Malai Kofta',200,2,8,'malai kofta.jpg'),(78,'Paneer Tikka',200,2,8,'paneer tika.jpg'),(79,'Paneer Paratha',200,2,8,'paneer paratha.jpg'),(80,'Cheese Pizza',344,3,9,'cheese.jpg'),(82,'Supreme',344,3,9,'supreme.jpg'),(84,'Beef Pizza',344,3,9,'beef_1.jpg'),(85,'Chicken Cheese Tikka',344,3,9,'tikka.jpg'),(86,'Pepproni Pizza',344,3,9,'pepproni.jpg'),(87,'Mashroom Special Pizza',344,3,9,'mashroom.jpg'),(88,'Pizza Milai Tikka',344,3,9,'milai tikka.jpg'),(89,'Chicken Fajita',344,3,9,'fajita.jpg'),(90,'Fish Burger',200,3,10,'fish.jpeg'),(91,'Grilled Chicken Burger',200,3,10,'grilled.jpg'),(92,'Beef Burger',200,3,10,'beef burger.jpg'),(93,'Zinger Burger',200,3,10,'zinger.jpg'),(94,'Sub Special Burger',200,3,10,'sub.png'),(95,'Capillini Noodles',400,3,11,'capillini.jpg'),(96,'Fusilli Pasta',400,3,11,'Fusilli Pasta.jpeg'),(97,'Furfalle Pasta',400,3,11,'Furfalle Pasta.jpg'),(98,'chicken sour Pasta',400,3,11,'chicken sour Pasta.jpeg'),(99,'Spicy Spagy Pasta',400,3,11,'Spicy Spagy Pasta.jpg'),(100,'Bucatini Spaghetti',400,3,11,'bucatini.jpg'),(101,'Italian Soba Noodle Salad',400,3,11,'Italian Soba Noodle Salad.jpeg'),(102,'Dragon Prawn Spaghetti',400,3,11,'Dragon Prawn Spaghetti.jpeg'),(104,'Spicy Vegetable Fried Rice',400,4,12,'Spicy Vegetable Fried Rice.jpg'),(105,'Broccoli and Chicken Stir-Fried Rice',400,4,12,'Broccoli and Chicken Stir-Fried Rice.jpg'),(106,'Ham and Egg Fried Rice',400,4,12,'Ham and Egg Fried Rice.jpg'),(107,'Rainbow Fried Rice',400,4,12,'Rainbow Fried Rice.jpg'),(108,'Fried Brown Rice with Snow Peas and Peanuts',400,4,12,'Fried Brown Rice with Snow Peas and Peanuts.jpg'),(109,'Vegetable Fried Rice',400,4,12,'Vegetable Fried Rice.jpg'),(110,'Mushroom and Pine Nut Fried Brown Rice',400,4,12,'Mushroom and Pine Nut Fried Brown Rice.jpg'),(111,'Fried Rice',400,4,12,'Fried Rice.jpg'),(112,'Yang Chow Fried Rice',400,4,12,'Yang Chow Fried Rice.jpg'),(113,'Zucchini and Walnut Fried Brown Rice',400,4,12,'Zucchini and Walnut Fried Brown Rice.jpg'),(114,'Fried Brown Rice with Red Pepper and Almond',400,4,12,'Fried Brown Rice with Red Pepper and Almond.jpg'),(115,'Fried Rice with Sweet Soy Sauce',400,4,12,'Fried Rice with Sweet Soy Sauce.jpg'),(116,'Paneer Fried Rice',400,4,12,'Paneer Fried Rice.jpg'),(117,'Chicken Fried Rice',400,4,12,'Chicken Fried Rice.jpg'),(118,'Lighter Fried Rice',400,4,12,'Lighter Fried Rice.jpg'),(119,'Shrimp Fried Rice',400,4,12,'Shrimp Fried Rice.jpg'),(122,'Watercress Soup With Seafood',456,4,14,'Watercress Soup With Seafood.jpg'),(123,'West Lake Beef Soup',456,4,14,'West Lake Beef Soup.jpg'),(124,'Winter Melon Soup',456,4,14,'Winter Melon Soup.jpg'),(125,'Cantonese Cream Corn Soup',456,4,14,'Cantonese Cream Corn Soup.jpg'),(126,'Egg Drop Soup',456,4,14,'Egg Drop Soup.jpg'),(127,'Wonton Soup',456,4,14,'Wonton Soup.jpg'),(128,'Hot and Sour Soup',456,4,14,'Hot and Sour Soup.jpg'),(129,'Singapore Style Noodles',200,4,13,'Singapore-Style Noodles.jpeg'),(130,'Black Bean Steamed Scallops with Noodles',344,4,13,'Black Bean Steamed Scallops with Noodles.jpeg'),(131,'Beef and Black Bean Ho Fun Noodles',344,4,13,'Beef and Black Bean Ho Fun Noodles.jpeg'),(132,'Classic Shrimp Laksa with Rice Noodles',344,4,13,'Classic Shrimp Laksa with Rice Noodles.jpeg'),(133,'Vegetable Chow Mein Noodles',344,4,13,'Vegetable Chow Mein Noodles.jpeg'),(135,'Hot and Sour Fresh Noodles with Zucchini',344,4,13,'Hot and Sour Fresh Noodles with Zucchini.jpeg'),(136,'Shrimp Lo Mein Noodles',344,4,13,'Shrimp Lo Mein Noodles.jpeg'),(137,'Super Supreme',300,3,9,'super supreme.jpg'),(138,'Gujrati Samosa',234,2,7,'Gujrati Samosa.jpg'),(139,'Chocolate Pudding',654,6,21,'Chocolate Pudding.jpeg'),(140,'bread and butter pudding',344,6,21,'bread and butter pudding.jpeg'),(141,'Raspberry White Chocolate Waffle Pudding',344,6,21,'Raspberry White Chocolate Waffle Pudding.jpeg'),(144,'Pista Ice cream',34,6,22,'Pista ice cream.jpeg'),(145,'Coca Cola',25,5,16,'Coca Cola.jpeg'),(146,'Gajjar Ka Halwa',455,6,20,'Gajjar ka Halwa.jpeg'),(147,'Black Coffee',302,5,17,'Black coffee.jpeg'),(148,'Strawberry Shake',234,5,15,'Strawberry Shake.jpeg'),(149,'Mango Shake',234,5,15,'Mango Shake.png'),(150,'Lemon Tea',234,5,17,'Lemon tea.jpeg'),(151,'Orange Juice',234,5,18,'Orange Juice.jpeg'),(152,'sdfs',2344,6,21,'a2.jpg');
+
+/*Table structure for table `order` */
+
+DROP TABLE IF EXISTS `order`;
+
+CREATE TABLE `order` (
+  `orderNo` int(11) NOT NULL AUTO_INCREMENT,
+  `customer` varchar(50) DEFAULT NULL,
+  `bill` double DEFAULT NULL,
+  `date` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`orderNo`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+/*Data for the table `order` */
+
+insert  into `order`(`orderNo`,`customer`,`bill`,`date`) values (1,'asma',200,'2018-02-06'),(2,'asma',400,'2018-02-06'),(3,'asma',200,'2018-02-06'),(4,'asma',758,'2018-02-12'),(5,'asma',1400,'2018-06-28'),(6,'asma',1034,'2018-06-28');
+
+/*Table structure for table `places` */
+
+DROP TABLE IF EXISTS `places`;
+
+CREATE TABLE `places` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `place` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+/*Data for the table `places` */
+
+insert  into `places`(`pid`,`place`) values (1,'Pakistan'),(2,'Indian'),(3,'Italian'),(4,'Chinese'),(5,'Beverages'),(6,'Desserts');
+
+/*Table structure for table `selecteditems` */
+
+DROP TABLE IF EXISTS `selecteditems`;
+
+CREATE TABLE `selecteditems` (
+  `itemName` varchar(50) DEFAULT NULL,
+  `itemPrice` double DEFAULT NULL,
+  `itemQuan` int(11) DEFAULT NULL,
+  `orderNo` int(11) DEFAULT NULL,
+  `itemId` int(11) NOT NULL AUTO_INCREMENT,
+  `customerId` varchar(50) DEFAULT NULL,
+  `date` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`itemId`),
+  KEY `selecteditems_ibfk_2` (`customerId`),
+  KEY `orderNo` (`orderNo`),
+  CONSTRAINT `selecteditems_ibfk_3` FOREIGN KEY (`orderNo`) REFERENCES `order` (`orderNo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+/*Data for the table `selecteditems` */
+
+insert  into `selecteditems`(`itemName`,`itemPrice`,`itemQuan`,`orderNo`,`itemId`,`customerId`,`date`) values ('Fish Burger',200,1,1,1,'asma','2018-02-06'),('Fish Burger',200,1,2,2,'asma','2018-02-06'),('Fish Burger',200,1,2,3,'asma','2018-02-06'),('Grilled Chicken Burger',200,1,3,4,'asma','2018-02-06'),('Seekh Kaabab',456,1,4,5,'asma','2018-02-12'),('Black Coffee',302,1,4,6,'asma','2018-02-12'),('Beef Karahi',700,1,5,7,'asma','2018-06-28'),('Chicken Karahi',700,1,5,8,'asma','2018-06-28'),('Watercress Soup With Seafood',456,1,6,9,'asma','2018-06-28'),('Black Bean Steamed Scallops with Noodles',344,1,6,10,'asma','2018-06-28');
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `user` */
+
+insert  into `user`(`username`,`password`,`name`,`email`) values ('abc','1234','asma','asmamunir731@gmail.com'),('admin','456','abc','admin@yahoo.com'),('asma','123','Asma Munir','asma@gmail.com');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

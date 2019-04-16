@@ -1,0 +1,68 @@
+<html>
+    <head><title>Feed Back</title>
+    <body style="background-color:rgb(222,184,135);">
+        <h1 style="text-align:center;color:Brown">Give your Feedback</h1>
+
+        <script>
+            function output()
+            {
+                var text = "Thank You for Visit our Website!! We hope you will come again :)\n";
+                alert(text);
+            }
+
+            function checkName()
+            {
+                if (document.getElementById("name").value == "")
+                    document.getElementById("errname").innerHTML = "please enter name";
+                else
+                    document.getElementById("errname").innerHTML = "";
+            }
+            function checkEmail()
+            {
+                if (document.getElementById("email").value == "")
+                    document.getElementById("erremail").innerHTML = "please enter email";
+                else
+                    document.getElementById("erremail").innerHTML = "";
+            }
+            function checkNumber()
+            {
+                if (document.getElementById("numbr").value == "")
+                    document.getElementById("errContact").innerHTML = "please enter Contact Number";
+                else
+                    document.getElementById("errContact").innerHTML = "";
+            }
+        </script>
+
+
+        <form>
+            <table cellspacing="4" cellpadding="4" align="center">
+
+                <tr><td>Name: <br><input type="text" id="name" name="n1" onblur="checkName()"/> <span id="errname"  style="color:blue;"></span><br/> </td></tr>
+
+                <tr><td>Contact Number: <br><input type="text" id="numbr" name="no1"  onblur="checkNumber()"/> <span id="errContact" style="color:orange;"></span><br/>
+                    </td></tr>
+
+                <tr><td>Email: <br><input type="text" id="email" name="e1"  onblur="checkEmail()"/> <span id="erremail" style="color:red;"></span><br/>
+
+                <tr><td>Is it your first time with Our Web?</td></tr><td><input type="radio" name="count" value="yes"> Yes
+                    <input type="radio" name="count" value="No"> No</td>
+
+                <tr><td>Please tell us how easy it is to find information.</td></tr>
+                <tr><td><input type="radio" name="experience" value="veasy">Very Easy</td> </tr>
+                <tr><td><input type="radio" name="experience" value="easy">Easy</td></tr>
+                <tr><td><input type="radio" name="experience" value="avg">Average </td></tr>
+                <tr><td><input type="radio" name="experience" value="diff">Difficult</td></tr>
+
+                <tr><td>Did you find what you want?<br></td></tr><td><input type="radio" name="opinion" value="yes/all"> Yes All<br>
+                    <input type="radio" name="opinion" value="yes/something"> Yes,Something<br>
+                    <input type="radio" name="opinion" value="none">No,none of it<br> </td>
+
+                <tr><td>Comments<br><textarea rows="5" cols="30">
+                        </textarea></td></tr>
+
+                <tr><td><input type="checkbox" name="visit">Will You visit our web again? </td></tr>
+                <tr><td ><input type="submit" value="Submit"  onclick="output()" >
+            </table>
+        </form></body>
+</head>
+</html>
